@@ -15,7 +15,7 @@ Architecture document for porting the Azure ML PromptFlow fact-checker to FastAP
 7. [Project Structure](#project-structure)
 8. [API Specification](#api-specification)
 9. [pydantic-ai Integration](#pydantic-ai-integration)
-10. [Pipeline Pattern (seo-acg Style)](#pipeline-pattern-seo-acg-style)
+10. [Pipeline Pattern](#pipeline-pattern)
 11. [Configuration](#configuration)
 
 ---
@@ -553,9 +553,8 @@ async def evaluate_claim(query: str, search_results: List[SearchResult]) -> Clai
 
 ---
 
-## Pipeline Pattern (seo-acg Style)
-
-Following the patterns from the seo-acg project, we use a **Pipeline → Adapter** architecture.
+## Pipeline Pattern
+We use a **Pipeline → Adapter** architecture.
 
 ### Layer Architecture
 
@@ -670,7 +669,6 @@ class FactCheckPipeline:
             search_results=search_results
         )
 
-        # Build messages array (seo-acg pattern)
         messages = [
             {"role": "system", "content": self.prompt_mapping["evaluation"]},
             {"role": "user", "content": user_prompt}
@@ -733,7 +731,7 @@ class OpenRouterAdapter:
     """
     Unified adapter for all LLM calls via OpenRouter.
 
-    Pattern from seo-acg: Single adapter with retry logic
+    Single adapter with retry logic
     and structured output support.
     """
 
@@ -831,7 +829,7 @@ class OpenRouterWebsearchAdapter:
     """
     Web search adapter using OpenRouter's :online suffix.
 
-    Pattern from seo-acg: Append ':online' to model name to enable
+    Append ':online' to model name to enable
     built-in web search capability. No separate search API needed.
 
     Example: "x-ai/grok-4-fast" becomes "x-ai/grok-4-fast:online"
@@ -917,7 +915,6 @@ flowchart LR
 - No separate search API subscription needed
 - Single provider (OpenRouter) for both search and evaluation
 - LLM can intelligently query and synthesize results
-- Same pattern used in seo-acg project
 
 ### FactCheckService Design
 
@@ -1135,7 +1132,6 @@ With the OpenRouter `:online` approach:
 - **Single API key** - Only `OPENROUTER_API_KEY` needed
 - **No Tavily/Perplexity/Serper** - Web search is built into the LLM call
 - **Simpler deployment** - Fewer environment variables to configure
-- **Same pattern as seo-acg** - Consistent architecture across projects
 
 ---
 
@@ -1148,7 +1144,7 @@ With the OpenRouter `:online` approach:
 | Pipeline vs Agent | Pipeline | Deterministic, faster, controllable |
 | LLM Framework | pydantic-ai | Native structured output, validation |
 | LLM Provider | OpenRouter | Flexibility, multiple models |
-| Web Search | OpenRouter `:online` | Same pattern as seo-acg, single API key |
+| Web Search | OpenRouter `:online` | single API key |
 | Model Selection | ModelUseCase (no tiers) | Simple prompt/model switching |
 
 ### Data Flow Summary
@@ -1157,7 +1153,7 @@ With the OpenRouter `:online` approach:
 Request → Validate → Websearch (model:online) → Build Prompt → LLM → Validate Output → Response
 ```
 
-### Key Patterns from seo-acg
+### Key Patterns from
 
 1. **`:online` suffix** - Append to model name for built-in websearch
 2. **ModelUseCase** - Enum for different use cases (websearch, evaluation)
