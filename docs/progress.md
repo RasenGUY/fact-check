@@ -57,28 +57,28 @@
 ## Phase 3: Service Layer
 
 ### 3.1 Service Implementation
-- [ ] Create `app/services/fact_check_service.py`
-- [ ] Implement `FactCheckService` class
-- [ ] Add `fact_check()` method (stub calling pipeline)
-- [ ] Wire service to API route
+- [x] Create `app/services/fact_check_service.py`
+- [x] Implement `FactCheckService` class
+- [x] Add `fact_check()` method (stub calling pipeline)
+- [x] Wire service to API route
 
 ---
 
 ## Phase 4: Configuration
 
 ### 4.1 Settings
-- [ ] Create `app/config/settings.py`
-- [ ] Implement `Settings` class with `BaseSettings`
-- [ ] Add `openrouter_api_key` field
-- [ ] Add `max_search_results` field
-- [ ] Add `log_level` field
+- [x] Create `app/config/settings.py`
+- [x] Implement `Settings` class with `BaseSettings`
+- [x] Add `openrouter_api_key` field
+- [x] Add `max_search_results` field
+- [x] Add `log_level` field
 
 ### 4.2 Model Configuration
-- [ ] Create `app/config/model_config.py`
-- [ ] Define `ModelUseCase` enum
-- [ ] Define `ModelConfig` dataclass
-- [ ] Create `MODEL_MAPPING` dictionary
-- [ ] Implement `ModelSelector` class with static methods
+- [x] Create `app/config/model_config.py`
+- [x] Define `ModelUseCase` enum
+- [x] Define `ModelConfig` dataclass
+- [x] Create `MODEL_MAPPING` dictionary
+- [x] Implement `ModelSelector` class with static methods
 
 ---
 
@@ -158,8 +158,8 @@
 |-------|--------|-------|
 | 1. Project Setup | Complete | Directory structure, requirements, .env.example |
 | 2. API Layer | Complete | main.py, routes, middlewares, logging, transformers, exception handlers |
-| 3. Service Layer | Not Started | |
-| 4. Configuration | Not Started | |
+| 3. Service Layer | Complete | FactCheckService with stub, wired to route |
+| 4. Configuration | Complete | Settings, ModelUseCase, ModelSelector |
 | 5. Adapters | Not Started | |
 | 6. Pipeline | Not Started | |
 | 7. Integration | Not Started | |
