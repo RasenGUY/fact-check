@@ -120,7 +120,7 @@ class TestFactCheckEndpointValidation:
         async with AsyncClient(
             transport=ASGITransport(app=app), base_url="http://test"
         ) as client:
-            response = await client.post("/fact-check", json={"query": ""})
+            response = await client.post("/api/v1/fact-check", json={"query": ""})
 
             assert response.status_code == 422
 
@@ -130,7 +130,7 @@ class TestFactCheckEndpointValidation:
         async with AsyncClient(
             transport=ASGITransport(app=app), base_url="http://test"
         ) as client:
-            response = await client.post("/fact-check", json={})
+            response = await client.post("/api/v1/fact-check", json={})
 
             assert response.status_code == 422
 
@@ -140,7 +140,7 @@ class TestFactCheckEndpointValidation:
         async with AsyncClient(
             transport=ASGITransport(app=app), base_url="http://test"
         ) as client:
-            response = await client.post("/fact-check", json={"query": "x" * 1001})
+            response = await client.post("/api/v1/fact-check", json={"query": "x" * 1001})
 
             assert response.status_code == 422
 
@@ -172,7 +172,7 @@ class TestFactCheckEndpointIntegration:
             transport=ASGITransport(app=app), base_url="http://test"
         ) as client:
             response = await client.post(
-                "/fact-check", json={"query": "The sky is blue"}
+                "/api/v1/fact-check", json={"query": "The sky is blue"}
             )
 
             # Should succeed
@@ -195,7 +195,7 @@ class TestFactCheckEndpointIntegration:
             transport=ASGITransport(app=app), base_url="http://test"
         ) as client:
             response = await client.post(
-                "/fact-check", json={"query": "Test claim"}
+                "/api/v1/fact-check", json={"query": "Test claim"}
             )
 
             # Should return error response
@@ -224,7 +224,7 @@ class TestResponseTransformation:
         async with AsyncClient(
             transport=ASGITransport(app=app), base_url="http://test"
         ) as client:
-            response = await client.post("/fact-check", json={"query": ""})
+            response = await client.post("/api/v1/fact-check", json={"query": ""})
 
             data = response.json()
             assert data["success"] is False
