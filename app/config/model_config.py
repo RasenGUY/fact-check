@@ -1,13 +1,12 @@
 from enum import Enum
 from dataclasses import dataclass
-
+from .supported_models import X_AI_GROK_4_FAST, OPEN_AI_GPT_5_2_CHAT, OPEN_AI_GPT_5_2
 
 class ModelUseCase(str, Enum):
     """Use cases for model selection - allows easy prompt/model switching."""
 
     FACT_CHECK_WEBSEARCH = "fact_check_websearch"  # Web search step
     FACT_CHECK_EVALUATION = "fact_check_evaluation"  # Evaluation step
-
 
 @dataclass
 class ModelConfig:
@@ -18,12 +17,8 @@ class ModelConfig:
 
 # Simple use case → model mapping (no tiers)
 MODEL_MAPPING: dict[ModelUseCase, ModelConfig] = {
-    ModelUseCase.FACT_CHECK_WEBSEARCH: ModelConfig(
-        model_name="x-ai/grok-4-fast"  # Will append :online for websearch
-    ),
-    ModelUseCase.FACT_CHECK_EVALUATION: ModelConfig(
-        model_name="openai/gpt-4o-mini"
-    ),
+    ModelUseCase.FACT_CHECK_WEBSEARCH: ModelConfig(model_name=OPEN_AI_GPT_5_2_CHAT),
+    ModelUseCase.FACT_CHECK_EVALUATION: ModelConfig(model_name=OPEN_AI_GPT_5_2),
 }
 
 

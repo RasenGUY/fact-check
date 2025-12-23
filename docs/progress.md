@@ -85,45 +85,53 @@
 ## Phase 5: Adapters
 
 ### 5.1 OpenRouter Adapter
-- [ ] Create `app/adapters/openrouter_adapter.py`
-- [ ] Implement `OpenRouterAdapter` class
-- [ ] Add `make_request()` method with retry logic
-- [ ] Add structured output support (`output_type` parameter)
-- [ ] Add JSON schema response format handling
+- [x] Create `app/adapters/openrouter_adapter.py`
+- [x] Implement `OpenRouterAdapter` class
+- [x] Add `make_request()` method with retry logic
+- [x] Add structured output support (`output_type` parameter)
+- [x] Add JSON schema response format handling
 
 ### 5.2 Websearch Adapter
-- [ ] Create `app/adapters/openrouter_websearch_adapter.py`
-- [ ] Define `WebsearchResponse` model
-- [ ] Define `WebsearchResponseList` model
-- [ ] Implement `OpenRouterWebsearchAdapter` class
-- [ ] Add `WEBSEARCH_SYSTEM_PROMPT`
-- [ ] Add `search()` method with `:online` suffix logic
+- [x] Create `app/adapters/openrouter_websearch_adapter.py`
+- [x] Define `WebsearchResponse` model (title, url, content)
+- [x] Define `WebsearchResponseList` model
+- [x] Implement `OpenRouterWebsearchAdapter` class
+- [x] Add `WEBSEARCH_SYSTEM_PROMPT`
+- [x] Add `search()` method with `:online` suffix logic
+
+### 5.3 Utilities
+- [x] Create `app/utils/retry_decorator.py`
+- [x] Add `openrouter_api_url` to settings
 
 ---
 
 ## Phase 6: Pipeline
 
 ### 6.1 Prompts
-- [ ] Create `app/pipelines/prompts/__init__.py`
-- [ ] Create `app/pipelines/prompts/evaluation.py`
-- [ ] Add `EVALUATION_PROMPT` constant
+- [x] Create `app/pipelines/prompts/__init__.py`
+- [x] Create `app/pipelines/prompts/evaluation.py`
+- [x] Add `EVALUATION_PROMPT` constant (following CLAUDE.md guidelines)
 
 ### 6.2 Pipeline Implementation
-- [ ] Create `app/pipelines/fact_check_pipeline.py`
-- [ ] Implement `FactCheckPipeline` class
-- [ ] Add `execute()` method (main orchestrator)
-- [ ] Add `_search_for_evidence()` method (Step 1)
-- [ ] Add `_evaluate_claim()` method (Step 2)
-- [ ] Add `_build_user_prompt()` helper method
-- [ ] Create singleton `fact_check_pipeline` instance
+- [x] Create `app/pipelines/fact_check_pipeline.py`
+- [x] Implement `FactCheckPipeline` class
+- [x] Add `execute()` method (main orchestrator)
+- [x] Add `_search_for_evidence()` method (Step 1)
+- [x] Add `_evaluate_claim()` method (Step 2)
+- [x] Add `_build_user_prompt()` helper method
+- [x] Create singleton `fact_check_pipeline` instance
+
+### 6.3 Service Integration
+- [x] Wire pipeline to FactCheckService
+- [x] Remove stub response from service
 
 ---
 
 ## Phase 7: Integration & Testing
 
 ### 7.1 Wire Everything Together
-- [ ] Remove stubs from API routes
-- [ ] Connect service to real pipeline
+- [x] Remove stubs from API routes
+- [x] Connect service to real pipeline
 - [ ] End-to-end test with real API call
 
 ### 7.2 Unit Tests
@@ -160,9 +168,9 @@
 | 2. API Layer | Complete | main.py, routes, middlewares, logging, transformers, exception handlers |
 | 3. Service Layer | Complete | FactCheckService with stub, wired to route |
 | 4. Configuration | Complete | Settings, ModelUseCase, ModelSelector |
-| 5. Adapters | Not Started | |
-| 6. Pipeline | Not Started | |
-| 7. Integration | Not Started | |
+| 5. Adapters | Complete | OpenRouterAdapter, WebsearchAdapter with :online suffix |
+| 6. Pipeline | Complete | FactCheckPipeline, EVALUATION_PROMPT (CLAUDE.md style) |
+| 7. Integration | In Progress | Service wired to pipeline, need E2E test |
 | 8. Docker | Not Started | |
 
 ---
